@@ -54,18 +54,28 @@ namespace iS3.Desktop
             string username = LoginNameTB.Text;
             string password = LoginPasswordTB.Password;
 
-            Globals.oAuthClient = new Core.OAuthClient();
-            string token = await Globals.oAuthClient.Call_WebAPI_By_Resource_Owner_Password_Credentials_Grant(username, password);
-            if (token != string.Empty)
+            Globals.oAuthClient = new Core.OAuthClient(ServiceConfig.IP, ServiceConfig.PortNum);
+            string token = string.Empty;
+            try
             {
-                App app = Application.Current as App;
-                IS3MainWindow mw = (IS3MainWindow)app.MainWindow;
-                mw.SwitchToProjectListPage();
+                token = await Globals.oAuthClient.Call_WebAPI_By_Resource_Owner_Password_Credentials_Grant(username, password);
+                if (token != string.Empty)
+                {
+                    App app = Application.Current as App;
+                    IS3MainWindow mw = (IS3MainWindow)app.MainWindow;
+                    mw.SwitchToProjectListPage();
+                }
+                else
+                {
+                    MessageBox.Show("账号或密码错误！");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("账号或密码错误");
+                MessageBox.Show("服务未开启或未正确连接到服务器！");
             }
+
+
         }
         #region  控件切换逻辑
         private void DBConfig_Click(object sender, RoutedEventArgs e)
@@ -95,5 +105,22 @@ namespace iS3.Desktop
             DBConfigElement.Visibility = Visibility.Hidden;
         }
         #endregion
+
+        private async void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceConfig.IP = DBAddress_TB.Text;
+            ServiceConfig.PortNum = DBPort_TB.Text;
+            Globals.oAuthClient = new Core.OAuthClient(ServiceConfig.IP, ServiceConfig.PortNum);
+            try
+            {
+                string result = await Globals.oAuthClient.GetByAuth(ServiceConfig.BaseURL + ServiceConfig.TestFormat,true);
+                MessageBox.Show(result);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("未连接到服务！");
+            }
+
+        }
     }
 }

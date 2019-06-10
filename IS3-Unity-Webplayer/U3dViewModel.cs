@@ -150,15 +150,23 @@ namespace iS3.Unity.Webplayer
 
         public void Load3DScene()
         {
-            // check file exists
-            string filePath = prj.projDef.LocalFilePath + "\\"
-                + eMap.LocalMapFileName;
-            if (File.Exists(filePath))
+            try
             {
-                _u3dPlayerControl.LoadScence(filePath);
+                // check file exists
+                string filePath = prj.projDef.LocalFilePath + "\\"
+                    + eMap.LocalMapFileName;
+                if (File.Exists(filePath))
+                {
+                    _u3dPlayerControl.LoadScence(filePath);
+                }
+                _u3dPlayerControl.UnityCall += new U3DPlayerAxLib.U3DPlayerControl.ExternalCallHandler(_u3dPlayerControl_UnityCall);
+                receiveMessageHandler += new EventHandler<UnityToIS3Args>(ReceiveMessageListener);
             }
-            _u3dPlayerControl.UnityCall += new U3DPlayerAxLib.U3DPlayerControl.ExternalCallHandler(_u3dPlayerControl_UnityCall);
-            receiveMessageHandler += new EventHandler<UnityToIS3Args>(ReceiveMessageListener);
+            catch (Exception ex)
+            {
+                Globals.mainframe.output("error:未正确安装UnityWebplayer插件");  
+            }
+
         }
         /// <summary>
         /// 

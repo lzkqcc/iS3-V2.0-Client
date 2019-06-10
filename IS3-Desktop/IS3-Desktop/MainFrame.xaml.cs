@@ -116,15 +116,17 @@ namespace iS3.Desktop
 
         public MainFrame(string projectID)
         {
-            // Load project definition and user data at first
-            // 
-            _projectID = projectID;
+                // Load project definition and user data at first
+                // 
+                _projectID = projectID;
             
             _app = App.Current as App;
             _app.MainFrame = this;
             Globals.mainframe = this;
 
             InitializeComponent();
+
+
 
             Loaded += MainFrame_Loaded;
             Unloaded += MainFrame_Unloaded;
@@ -448,9 +450,9 @@ namespace iS3.Desktop
             else if (eMap.MapType == EngineeringMapType.Map3D)
             {
                 if (eMap.LocalMapFileName.EndsWith(".unity3d")){
-                    iS3.Unity.Webplayer.U3DView u3dView = new iS3.Unity.Webplayer.U3DView(_prj, eMap);
-                    LayoutDoc.Content = u3dView;
-                    view = u3dView.view;
+                        iS3.Unity.Webplayer.U3DView u3dView = new iS3.Unity.Webplayer.U3DView(_prj, eMap);
+                        LayoutDoc.Content = u3dView;
+                        view = u3dView.view;
                 }
                 else
                 {

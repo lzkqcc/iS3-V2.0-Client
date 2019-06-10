@@ -22,7 +22,15 @@ namespace U3DPlayerAxLib
 
         public U3DPlayerControl()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("未正确安装UnityWebplayer插件！");
+            }
+
         }
 
         /*

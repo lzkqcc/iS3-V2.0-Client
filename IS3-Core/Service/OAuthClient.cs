@@ -15,10 +15,10 @@ namespace iS3.Core
         private HttpClient _httpClient;
         private string token;
 
-        public OAuthClient()
+        public OAuthClient(string ip="localhost",string port="8080")
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("http://localhost:8080");
+            _httpClient.BaseAddress = new Uri(string.Format("http://{0}:{1}", ip, port));
         }
 
         public async Task<string> GetAccessToken(string username, string password)
@@ -48,9 +48,9 @@ namespace iS3.Core
             return token;
         }
 
-        public async Task<string> GetByAuth(string url)
+        public async Task<string> GetByAuth(string url,bool stopCache=false)
         {
-            if (ServiceConfig.NeedCache)
+            if ((!stopCache)&&(ServiceConfig.NeedCache))
             {
                 //缓存判断
                 if (iS3Cache.checkIfExist(url))
@@ -63,7 +63,7 @@ namespace iS3.Core
             }
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             var result = response.Content.ReadAsStringAsync().Result;
-            if (ServiceConfig.NeedCache)
+            if ((!stopCache) && (ServiceConfig.NeedCache))
             {
                 //缓存保存
                 iS3Cache.SaveToCache(url, result);

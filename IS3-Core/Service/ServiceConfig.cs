@@ -16,6 +16,10 @@ namespace iS3.Core.Service
         public static string BaseURL { get { return string.Format("http://{0}:{1}/", IP, PortNum); } }
         //获取Token
         public static string TokenURL { get { return BaseURL + "/token"; } }
+
+        //获取工程列表
+        public static string TestFormat = "api/project/testConnection";
+
         //获取工程列表
         public static string ProjectListFormat = "api/project/ProjectLocation";
 

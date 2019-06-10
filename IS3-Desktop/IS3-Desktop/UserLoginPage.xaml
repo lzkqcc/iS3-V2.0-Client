@@ -58,7 +58,7 @@
             </Grid>
         </Border>
 
-        <Border Visibility="Hidden" Name="DBConfigElement" Grid.RowSpan="2" Background="#7C06091C" CornerRadius="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" MinHeight="250" MinWidth="400" Margin="0 0 0 100" >
+        <Border Visibility="Hidden" Name="DBConfigElement" Grid.Row="1" Background="#7C06091C" CornerRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="200" MinWidth="400" Margin="0 0 0 100" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
@@ -78,12 +78,15 @@
                     <TextBox Name="DBPort_TB" Foreground="#FFABB9C5" VerticalContentAlignment="Center" Background="Transparent" Width="200" />
                 </StackPanel>
                 <WrapPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Name="CommitButton" 
+                    <Button Name="TestButton" 
                                    HorizontalAlignment="Center" FontSize="15" Padding="4"  Width="100" BorderThickness="0"
-                                   Background="#196D83B0" Foreground="#FFABB9C5" Click="Commit_Click">确定</Button>
+                                   Background="#196D83B0" Foreground="#FFABB9C5" Click="TestButton_Click">测试连接</Button>
+                    <Button Name="CommitButton" 
+                                   HorizontalAlignment="Center" FontSize="15" Padding="4" Margin="10 0 0 0" Width="100" BorderThickness="0"
+                                   Background="#196D83B0" Foreground="#FFABB9C5" Click="Commit_Click">保存修改</Button>
                     <Button Name="CancelButoon" 
                             HorizontalAlignment="Center" FontSize="15" Margin="10 0 0 0" Padding="4"  Width="100" BorderThickness="0"
-                            Background="#196D83B0" Foreground="#FFABB9C5" Click="Cancel_Click">取消</Button>
+                            Background="#196D83B0" Foreground="#FFABB9C5" Click="Cancel_Click">取消修改</Button>
                 </WrapPanel>
             </Grid>
         </Border>
